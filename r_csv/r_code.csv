@@ -1,0 +1,19 @@
+# In order to be able to scrape data we need to load neccessary R library. The following line loads 'rvest' package for scraping in R:
+
+library(rvest)
+
+# Now we need to assign the URL of the webpage we're aming to srape data from. The following line assigns the wikipedia page: 
+
+url <- "https://en.wikipedia.org/wiki/Comma-separated_values"
+
+# At this point we need to read data and store it. The following line reads the HTML content of the website and stores it in the variable 'webpage':
+
+webpage <- read_html(url)
+
+# Now we need to find html "location" of data in the table we're aiming to scrap from. I have found this in the elements code section using the inspect option in the web browser. Our data is located under the following name: "table.wikitable". The following line searches for the specified bit of html code stored in the 'webpage' table and extracts it into the variable 'example_table':
+
+example_table <- webpage %>% html_nodes("table.wikitable") %>% html_table()
+
+# Now that we have all the data we need stored in the variable we can run it via the following code: 
+
+print(example_table)
