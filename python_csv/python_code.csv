@@ -1,0 +1,32 @@
+# First we need to import python library for scraping. The following line imports the 'request' library, whoch is used for HTTP in the next steps: 
+
+import requests
+
+# Now we need to parse HTML document. The following line imports 'BeatufilSoup' class from the 'bs4' library:
+  
+from bs4 import BeautifulSoup
+import pandas as pd
+
+# Now we need to assign URL of the website to a variable. The following line assigns URL address to variable 'url':
+
+url = "https://en.wikipedia.org/wiki/Comma-separated_values"
+
+# The following line sends a GET request to the specified URL:
+
+response = requests.get(url)
+
+# The following line creates a BeautifulSoup object 'soup' parsing the HTML content of the website stored in the 'text' attribute of the 'response' object: 
+
+soup = BeautifulSoup(response.text, 'html.parser')
+
+# The following line finds the table element 'example_table' within the parsed HTML content ('soup') which I searched for and found using the inspect function of the web browser. The result is then stored in the 'example_table': 
+
+example_table = soup.find('table', class_ = 'wikitable')
+
+# The following line reads the table data into a DataFrame
+
+df = pd.read_html(str(example_table))[0]
+
+# The following line prints the table element we aimed for:
+
+print(df)
